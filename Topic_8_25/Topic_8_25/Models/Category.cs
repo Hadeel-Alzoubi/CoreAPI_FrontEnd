@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Topic_8_25.Models;
+namespace WepAPICore.Models;
 
 public partial class Category
 {

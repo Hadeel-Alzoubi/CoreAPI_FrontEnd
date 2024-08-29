@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Topic_8_25.Models;
+using Topic_8_25.DTOs;
+
+using WepAPICore.Models;
 
 namespace Topic_8_25.Controllers
 {
@@ -27,6 +29,53 @@ namespace Topic_8_25.Controllers
         {
             var category = db.Categories.Where(c => c.CategoryId == id);
             return Ok(category);
+        }
+
+        [HttpPost]
+        public IActionResult AddCategory([FromForm] categoryRequestDTO category)
+        {
+            var uploadImageFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+            if (!Directory.Exists(uploadImageFolder))
+            {
+                Directory.CreateDirectory(uploadImageFolder);
+            }
+            var imageFile = Path.Combine(uploadImageFolder, category.CategoryImage.FileName);
+            using (var stream = new FileStream(imageFile, FileMode.Create))
+            {
+                category.CategoryImage.CopyToAsync(stream);
+            }
+            var data = new Category
+            {
+                CategoryName = category.CategoryName,
+                CategoryImage = category.CategoryImage.FileName,
+            };
+
+            db.Categories.Add(data);
+            db.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCategory(int id, [FromForm] categoryRequestDTO category)
+        {
+            var c = db.Categories.FirstOrDefault(c => c.CategoryId == id);
+
+            var uploadImageFolder = Path.Combine(Directory.GetCurrentDirectory(),"Uploads");
+            if (!Directory.Exists(uploadImageFolder))
+            {
+                Directory.CreateDirectory(uploadImageFolder);
+            }
+            var imageFile = Path.Combine(uploadImageFolder, category.CategoryImage.FileName);
+            using(var stream = new FileStream(imageFile,FileMode.Create))
+            {
+                category.CategoryImage.CopyToAsync(stream);
+            }
+            
+            c.CategoryName = category.CategoryName ?? c.CategoryName;
+            c.CategoryImage = category.CategoryImage.FileName ?? c.CategoryImage;
+            
+            db.SaveChanges();
+            return Ok();
         }
 
     }

@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Orange\\Desktop\\Topic_8-25\\CoreAPI_FrontEnd\\Topic_8_25\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{993528D7-4E7E-4B66-A445-20D3AE2C8EE1}|Topic_8_25\\WepAPICore.csproj|c:\\users\\orange\\desktop\\topic_8-25\\coreapi_frontend\\topic_8_25\\topic_8_25\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{993528D7-4E7E-4B66-A445-20D3AE2C8EE1}|Topic_8_25\\WepAPICore.csproj|solutionrelative:topic_8_25\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "C:\\Users\\Orange\\Desktop\\Topic_8-25\\CoreAPI_FrontEnd\\Topic_8_25\\Topic_8_25\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "Topic_8_25\\Controllers\\CartController.cs",
+              "ToolTip": "C:\\Users\\Orange\\Desktop\\Topic_8-25\\CoreAPI_FrontEnd\\Topic_8_25\\Topic_8_25\\Controllers\\CartController.cs",
+              "RelativeToolTip": "Topic_8_25\\Controllers\\CartController.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAqwDUAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-28T08:39:06.314Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

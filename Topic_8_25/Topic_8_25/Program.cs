@@ -1,6 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
-using Topic_8_25.Models;
+using WepAPICore.Models;
 
 namespace Topic_8_25
 {
