@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Topic_8_25.DTOs;
 using WepAPICore.DTOs;
 using WepAPICore.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WepAPICore.Controllers
 {
@@ -51,6 +53,38 @@ namespace WepAPICore.Controllers
                 ProductId = cart.ProductId,
             };
             _db.CartItems.Add(data);
+            _db.SaveChanges();
+            return Ok();
+        }
+
+
+        [HttpPut("{id}")]
+        public IActionResult updateProduct(int id, int quantity)
+        {
+            var cart = _db.CartItems.FirstOrDefault(p => p.CartItemId == id);
+
+
+           cart.Quantity = quantity;
+            _db.SaveChanges();
+            return Ok();
+        }
+
+        [Route("DeleteItem/{id}")]
+        [HttpDelete]
+        public IActionResult DeleteProduct([FromForm] int id)
+        {
+            if (id < 1)
+            {
+                return BadRequest("ID must be greater than 0");
+            }
+
+            var success = _db.CartItems.FirstOrDefault(p => p.CartItemId == id);
+            if (success == null)
+            {
+                return NotFound();
+            }
+
+            _db.CartItems.Remove(success);
             _db.SaveChanges();
             return Ok();
         }

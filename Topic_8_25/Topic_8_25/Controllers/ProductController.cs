@@ -53,6 +53,7 @@ namespace Topic_8_25.Controllers
             return Ok(product);
         }
 
+        //Sort Data
         [HttpGet("OrderBy/")]
         public IActionResult price()
         {
@@ -126,5 +127,29 @@ namespace Topic_8_25.Controllers
             db.SaveChanges();
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult delete(int id)
+        {
+
+            if (id < 0)
+            {
+                return BadRequest();
+            }
+
+            var remove = db.Products.FirstOrDefault(c => c.ProductId == id);
+            if (remove == null)
+            {
+                return NotFound();
+            }
+
+
+            db.Products.Remove(remove);
+            db.SaveChanges();
+            return Ok();
+
+        }
+
+
     }
 }

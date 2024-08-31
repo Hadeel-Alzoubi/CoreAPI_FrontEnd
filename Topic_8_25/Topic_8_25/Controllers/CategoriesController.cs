@@ -78,5 +78,25 @@ namespace Topic_8_25.Controllers
             return Ok();
         }
 
+        [HttpDelete("delete")]
+        public IActionResult delete(int id)
+        {
+            if (id < 0)
+            {
+                return BadRequest();
+            }
+
+            var remove = db.Categories.FirstOrDefault(c => c.CategoryId == id);
+            if (remove == null)
+            {
+                return NotFound();
+            }
+            db.Categories.Remove(remove);
+            db.SaveChanges();
+            return Ok();
+
+
+        }
+
     }
 }
