@@ -59,19 +59,20 @@ namespace WepAPICore.Controllers
 
 
         [HttpPut("{id}")]
-        public IActionResult updateProduct(int id, int quantity)
+        public IActionResult updateProduct(int id, [FromBody] cartDTO cart)
         {
-            var cart = _db.CartItems.FirstOrDefault(p => p.CartItemId == id);
+            var c = _db.CartItems.FirstOrDefault(p => p.CartItemId == id);
 
+            c.Quantity=cart.Quantity;
+            var u=_db.CartItems.Update(c);
 
-           cart.Quantity = quantity;
             _db.SaveChanges();
-            return Ok();
+            return Ok(u);
         }
 
         [Route("DeleteItem/{id}")]
         [HttpDelete]
-        public IActionResult DeleteProduct([FromForm] int id)
+        public IActionResult DeleteProduct( int id)
         {
             if (id < 1)
             {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,10 @@ namespace Topic_8_25.Controllers
             db = _db;
         }
 
+
         [HttpGet]
+        [Authorize]
+
         public IActionResult Get()
         {
             var product = db.Products.ToList();
@@ -150,6 +154,13 @@ namespace Topic_8_25.Controllers
 
         }
 
+
+        [HttpGet("SortByName")]
+        public IActionResult get()
+        {
+            var pro = db.Products.OrderByDescending(n => n.ProductName).ToList().TakeLast(5); 
+            return Ok(pro);
+        }
 
     }
 }

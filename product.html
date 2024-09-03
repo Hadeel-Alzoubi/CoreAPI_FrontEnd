@@ -9,28 +9,41 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/index.html">Category</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/product.html" >product</a>
-              </li>
-            </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+     
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Category</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/product.html" onclick="clearCategory()">product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="addproduct.html">Add Product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="cart.html">cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="login.html">LogIn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="register.html">Register</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
 
-          </div>
-        </div>
-      </nav>
+      </div>
+    </div>
+  </nav>
     <div id="data-container" style="display: flex; flex-direction: row;">
    
     </div>
@@ -38,6 +51,8 @@
     <script>
 
         async function fun() {
+          debugger;
+
             let n = Number(localStorage.getItem("categoryId"))
             var Api;
             if (n != 0 && n != null) {   
@@ -48,9 +63,20 @@
                   Api =  "https://localhost:44319/api/Product"; 
                
             }
-          
-          let response = await fetch(Api);
+                    
+          const token = localStorage.getItem("jwtToken");
 
+          if (token == null) {
+                  alert("Please enter");
+                  window.location.href = "login.html";
+                }
+                    var response = await fetch(Api,{
+                      method: "GET",
+                headers: {
+                  'Authorization': `Bearer ${token}`
+              }
+                });
+               
             let data = await response.json();
             var x = document.getElementById("data-container");
             

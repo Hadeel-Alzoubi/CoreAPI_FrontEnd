@@ -274,3 +274,4 @@ C:\Users\Orange\Desktop\Core_API\Topic_8-25\CoreAPI_FrontEnd\Topic_8_25\Topic_8_
 C:\Users\Orange\Desktop\Core_API\Topic_8-25\CoreAPI_FrontEnd\Topic_8_25\Topic_8_25\obj\Debug\net8.0\WepAPICore.pdb
 C:\Users\Orange\Desktop\Core_API\Topic_8-25\CoreAPI_FrontEnd\Topic_8_25\Topic_8_25\obj\Debug\net8.0\WepAPICore.genruntimeconfig.cache
 C:\Users\Orange\Desktop\Core_API\Topic_8-25\CoreAPI_FrontEnd\Topic_8_25\Topic_8_25\obj\Debug\net8.0\ref\WepAPICore.dll
+C:\Users\Orange\Desktop\Core_API\Topic_8-25\CoreAPI_FrontEnd\Topic_8_25\Topic_8_25\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

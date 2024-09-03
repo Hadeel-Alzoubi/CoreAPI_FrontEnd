@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Topic_8_25.DTOs;
+using WepAPICore;
+using WepAPICore.DTOs;
 using WepAPICore.Models;
 
 namespace Topic_8_25.Controllers
@@ -10,9 +13,10 @@ namespace Topic_8_25.Controllers
     public class UsersController : ControllerBase
     {
         public MyDbContext db;
-
-        public UsersController(MyDbContext _db)
+        private readonly TokenGenerator _tokenGenerator;
+        public UsersController(MyDbContext _db, TokenGenerator tokenGenerator)
         {
+            _tokenGenerator = tokenGenerator;
             db = _db;
         }
 
@@ -26,7 +30,7 @@ namespace Topic_8_25.Controllers
         [HttpGet("getUser/{User}")]
         public IActionResult GetBy(int User)
         {
-            var users = db.Users.Where(p => p.UserId == User);
+            var users = db.Users.FirstOrDefault(p => p.UserId == User);
             return Ok(users);
         }
 
@@ -100,6 +104,58 @@ namespace Topic_8_25.Controllers
             return Ok();
         }
 
+        [Route("gggggggggg")]
+        [HttpPost]
+        public IActionResult addUSer([FromForm] UserRequestDTO userDTO)
+        {
+            byte[] hash;
+            byte[] salt;
 
+            PasswordHasher.createPasswordHash(userDTO.Password, out hash, out salt);
+
+            var user = new User
+            {
+                Username = userDTO.Username,
+                Password = userDTO.Password,
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                Email = userDTO.Email
+
+            };
+            db.Users.Add(user);
+            db.SaveChanges();
+            return Ok(user);
+        }
+
+
+        //[HttpGet("Login/{email}/{password}")]
+        //public IActionResult Login(string email, string password)
+        //{
+
+        //    var checkUser = db.Users.FirstOrDefault(u => u.Email == email);
+
+        //    if (checkUser == null || !PasswordHasher.VerifyPasswordHash(password, checkUser.PasswordHash, checkUser.PasswordSalt))
+        //    {
+        //        return Unauthorized("Invalid username or password.");
+        //    }
+
+
+        //    return Ok(checkUser);
+        //}
+
+        [HttpPost("LogIn")]
+        public IActionResult Login([FromForm] UserRequestDTO model)
+        {
+            var user = db.Users.FirstOrDefault(x => x.Email == model.Email);
+
+            if (user == null || !PasswordHasher.VerifyPasswordHash(model.Password, user.PasswordHash, user.PasswordSalt)) 
+            {
+                return Unauthorized("Invalid username or password."); // 401 Unauthorized 
+            }
+            var roles = db.UserRoles.Where(x => x.UserId == user.UserId).Select(ur => ur.Role).ToList();
+            var token = _tokenGenerator.GenerateToken(user.Username, roles);
+
+            return Ok(new { Token = token });
+        }
     }
 }

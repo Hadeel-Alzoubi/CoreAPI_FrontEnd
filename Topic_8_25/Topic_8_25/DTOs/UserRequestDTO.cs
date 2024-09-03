@@ -11,5 +11,7 @@ namespace Topic_8_25.DTOs
 
         public string? Email { get; set; }
 
+
+
     }
 }

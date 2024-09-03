@@ -102,5 +102,21 @@ namespace WepAPICore.Controllers
                 return Ok("false");
 
         }
+
+
+        //لما جربت اعمل get ما زبط ف لازم post 
+        // الفكرة انو الجيت بتجيب داتا ف من وين بدها اتجيب هاي القيم (مااااااااااا ندري )
+        [HttpPost("OddNumber")]
+        public IActionResult OddNumber([FromForm] List<int> numbers)
+        {
+            var sum = numbers
+                .GroupBy(x => x) // الاشياء المتشابهه بتحطهم بعيلة لحالهم 
+                .Where(p => p.Count() % 2 != 0)
+                //.Select(p => p.Key) // فيها وبلاها عادي 
+                .ToList();
+
+
+            return Ok(sum);
+        }
     }
 }
